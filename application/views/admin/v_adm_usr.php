@@ -31,14 +31,10 @@
                     </div>
                 </div>
                 <table class="table table-striped table-hover">
+                    <a href="#addEmployeeModal" class="add" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Tambah User">&#xF89A;</i></a>
                     <thead>
                         <tr>
-                            <th>
-                                <span class="custom-checkbox">
-                                    <input type="checkbox" id="selectAll">
-                                    <label for="selectAll"></label>
-                                </span>
-                            </th>
+                            <th>No</th>
                             <th>Name</th>
                             <th>Email</th>
                             <th>Password</th>
@@ -47,79 +43,20 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>
-                                <span class="custom-checkbox">
-                                    <input type="checkbox" id="checkbox1" name="options[]" value="1">
-                                    <label for="checkbox1"></label>
-                                </span>
-                            </td>
-                            <td>Thomas Hardy</td>
-                            <td>thomashardy@mail.com</td>
-                            <td>thomashardy</td>
-                            <td>
-                                <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span class="custom-checkbox">
-                                    <input type="checkbox" id="checkbox2" name="options[]" value="1">
-                                    <label for="checkbox2"></label>
-                                </span>
-                            </td>
-                            <td>Dominique Perrier</td>
-                            <td>dominiqueperrier@mail.com</td>
-                            <td>thomashardy</td>
-                            <td>
-                                <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span class="custom-checkbox">
-                                    <input type="checkbox" id="checkbox3" name="options[]" value="1">
-                                    <label for="checkbox3"></label>
-                                </span>
-                            </td>
-                            <td>Maria Anders</td>
-                            <td>mariaanders@mail.com</td>
-                            <td>thomashardy</td>
-                            <td>
-                                <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span class="custom-checkbox">
-                                    <input type="checkbox" id="checkbox4" name="options[]" value="1">
-                                    <label for="checkbox4"></label>
-                                </span>
-                            </td>
-                            <td>Fran Wilson</td>
-                            <td>franwilson@mail.com</td>
-                            <td>thomashardy</td>
-                            <td>
-                                <a href="#editEmployeeModal" class="edit"  data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span class="custom-checkbox">
-                                    <input type="checkbox" id="checkbox5" name="options[]" value="1">
-                                    <label for="checkbox5"></label>
-                                </span>
-                            </td>
-                            <td>Martin Blank</td>
-                            <td>martinblank@mail.com</td>
-                            <td>thomashardy</td>
-                            <td>
-                                <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                            </td>
+                        <?php $nomor = 1; ?>
+                            <?php foreach ($data as $dtm) : ?>
+                                <tr>
+                                    <td><?= $nomor ?></td>
+                                    <td><?= $dtm->nama_user; ?></td>
+                                    <td><?= $dtm->email_user; ?></td>
+                                    <td><?= $dtm->password_user; ?></td>
+                                    <td>
+                                        <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit User">&#xE254;</i></a>
+                                        <a href="<? base_url('C_auth/delete_user_action') ?>/<? $dtm->id_user ?>" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Hapus User">&#xE872;</i></a>
+                                    </td>
+                                </tr>
+                                <?php $nomor++; ?>
+                            <?php endforeach; ?>
                         </tr>
                     </tbody>
                 </table>
@@ -142,7 +79,7 @@
     <div id="addEmployeeModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form>
+                <form method="POST" action="<?= base_url('C_auth/insert_user_action') ?>">
                     <div class="modal-header">
                         <h4 class="modal-title">Add User</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -150,15 +87,15 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label>Name</label>
-                            <input type="text" class="form-control" required>
+                            <input type="text" name="nama_user" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label>Email</label>
-                            <input type="email" class="form-control" required>
+                            <input type="email" name="email_user" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label>Password</label>
-                            <textarea class="form-control" required></textarea>
+                            <textarea name="password_user" class="form-control" required></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -173,29 +110,30 @@
     <div id="editEmployeeModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form>
+            <form method="POST" action="<?= base_url('C_auth/edit_user_action') ?>">
                     <div class="modal-header">
                         <h4 class="modal-title">Edit User</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
+                    <input type="hidden" name="id_user" id="id_user" value="<?php echo $queryUsrDetail->id_user ?>">
                     <div class="modal-body">
                         <div class="form-group">
                             <label>Name</label>
-                            <input type="text" class="form-control" required>
+                            <input type="text" name="nama_user" class="form-control" value="<?php echo $queryUsrDetail->nama_user ?>" required>
                         </div>
                         <div class="form-group">
                             <label>Email</label>
-                            <input type="email" class="form-control" required>
+                            <input type="email" name="email_user" class="form-control" value="<?php echo $queryUsrDetail->email_user ?>" required>
                         </div>
                         <div class="form-group">
                             <label>Password</label>
-                            <textarea class="form-control" required></textarea>
+                            <input type="password" name="password_user" class="form-control" value="<?php echo $queryUsrDetail->password_user ?>" required>
                         </div>
 
                     </div>
                     <div class="modal-footer">
-                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                        <input type="submit" class="btn btn-info" value="Save">
+                        <input type="button" class="btn btn-default" name="cancel" data-dismiss="modal" value="Cancel">
+                        <input type="submit" class="btn btn-info" name="submit" value="Save">
                     </div>
                 </form>
             </div>
@@ -205,7 +143,7 @@
     <div id="deleteEmployeeModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form>
+            <form method="POST" action="<?= base_url('C_auth/delete_user_action') ?>">
                     <div class="modal-header">
                         <h4 class="modal-title">Delete User</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -216,7 +154,7 @@
                     </div>
                     <div class="modal-footer">
                         <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                        <input type="submit" class="btn btn-danger" value="Delete">
+                        <input type="submit" name="submit" class="btn btn-danger" value="Delete">
                     </div>
                 </form>
             </div>

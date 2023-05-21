@@ -5,25 +5,25 @@
         <div class="col-md-4 footer-col">
           <div class="footer_contact">
             <h4>
-              Contact Us
+              Hubungi Kami
             </h4>
             <div class="contact_link_box">
               <a href="">
                 <i class="fa fa-map-marker" aria-hidden="true"></i>
                 <span>
-                  Location
+                  Kota Bandung
                 </span>
               </a>
               <a href="">
                 <i class="fa fa-phone" aria-hidden="true"></i>
                 <span>
-                  Call +01 1234567890
+                  087 874516431
                 </span>
               </a>
               <a href="">
                 <i class="fa fa-envelope" aria-hidden="true"></i>
                 <span>
-                  demo@gmail.com
+                  burgerin@gmail.com
                 </span>
               </a>
             </div>
@@ -32,10 +32,11 @@
         <div class="col-md-4 footer-col">
           <div class="footer_detail">
             <a href="" class="footer-logo">
-              Feane
+              Burgerin
             </a>
             <p>
-              Necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with
+              
+Burgerin adalah restoran burger yang menawarkan pengalaman kuliner yang lezat dan menggugah selera. Dengan suasana modern dan nyaman, kami menyajikan berbagai pilihan burger dengan daging panggang segar, roti panggang renyah, serta topping dan saus yang kreatif. Dari burger klasik hingga opsi vegetarian dan vegan, Burgerin memastikan setiap pelanggan dapat menemukan hidangan sesuai selera mereka. Dengan pelayanan ramah dan profesional, restoran ini adalah tempat ideal untuk menikmati burger yang lezat dalam suasana yang menyenangkan.
             </p>
             <div class="footer_social">
               <a href="">
@@ -70,10 +71,7 @@
       </div>
       <div class="footer-info">
         <p>
-          &copy; <span id="displayYear"></span> All Rights Reserved By
-          <a href="https://html.design/">Free Html Templates</a><br><br>
-          &copy; <span id="displayYear"></span> Distributed By
-          <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
+          &copy; <span id="displayYear"></span> Burgerin
         </p>
       </div>
     </div>
