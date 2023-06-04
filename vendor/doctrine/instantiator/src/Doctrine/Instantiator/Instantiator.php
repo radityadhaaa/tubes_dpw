@@ -127,7 +127,7 @@ final class Instantiator implements InstantiatorInterface
 
         $this->checkIfUnSerializationIsSupported($reflectionClass, $serializedString);
 
-        return static fn () => unserialize($serializedString);
+        return static fn() => unserialize($serializedString);
     }
 
     /**

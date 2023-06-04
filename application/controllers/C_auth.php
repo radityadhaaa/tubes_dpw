@@ -2,14 +2,22 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class C_auth extends CI_Controller {
-    public function index() {
-        $this->load->view('layar/auth_header_login');
-        $this->load->view('auth/login');
-        $this->load->view('layar/auth_footer');
+    public function __construct(){
+		parent::__construct();		
+		$this->load->model('M_menu');
+        $this->load->helper('url');
+	}
 
+    public function index() {
+        $data['t_menu'] = $this->M_menu->tampil_data_menu()->result();
+
+        $this->load->view('burgerin/v_index_burgerin', $data);
     }
     public function cekLogin()
     {
+        $user = '';
+        $pass = '';
+
         $user = $_POST['user'];
         $pass = $_POST['pass'];
     
@@ -18,7 +26,7 @@ class C_auth extends CI_Controller {
             $this->crud_usr();
         } 
         else if($user == "user1" && $pass == "user1"){
-            $this->restaurant_home();
+            $this->index();
         }
         else {
             $this->index();
@@ -26,13 +34,14 @@ class C_auth extends CI_Controller {
         
     }
     public function register() {
-        $this->load->view('layar/auth_header_register');
         $this->load->view('auth/register');
-        $this->load->view('layar/auth_footer');
+    }
+    public function login()
+    {
+        $this->load->view('auth/login');
     }
 
     public function crud_usr(){
-
         $data_user = $this->M_user->getAllUsers();
         $temp['data'] = $data_user;
         $this->load->view('admin/v_adm_usr',$temp);
@@ -57,26 +66,33 @@ class C_auth extends CI_Controller {
     public function edit_user($id_user){
         $queryUserDetail = $this->M_user->getDataUserDetail($id_user);
         $data = array('queryUsrDetail' => $queryUserDetail); 
-        $this->load->view('admin/v_adm_usr', $data);
+        $this->load->view('admin/v_adm_usr_edit', $data);
     }
 
     public function edit_user_action(){
-        $this->ajax_checking();
+        $id_user = $this->input->post('id_user');
+		$nama_user = $this->input->post('nama_user');
+		$email_user = $this->input->post('email_user');
+		$password_user = $this->input->post('password_user');
 
-        $postData = $this->input->post();
-        $update = $this->t_user->updateDataUserDetail($postData);
-        if($update['status'] == 'success')
-            $this->session->set_flashdata('success', 'User '.$postData['email'].'`s details have been successfully updated!');
+		$updateaction = array(
+			'id_user' => $id_user,
+			'nama_user' => $nama_user,
+			'email_user' => $email_user,
+			'password_user' => $password_user
+		);
 
-        echo json_encode($update);
+		$M_user = $this->load->model('M_user');
+		$this->M_Mitra->editMitra($updateaction, $id_user);
+		redirect (base_url('/index.php/C_auth/crud_usr'));
     }
     public function delete_user_action($id_user){
+        $M_User = $this->load->model('M_user');
         $this->M_user->deleteDataUserDetail($id_user);
-        redirect(base_url(''));
+        redirect(base_url('/index.php/C_auth/crud_usr'));
 	}
     
     public function crud_menu(){
-
         $data_menu = $this->M_menu->getAllMenu();
         $temp['data'] = $data_menu;
         $this->load->view('admin/v_adm_menu',$temp);
@@ -99,32 +115,15 @@ class C_auth extends CI_Controller {
         redirect(base_url('C_auth/crud_usr'));
 	}
 
-    public function restaurant_home()
-    {
-        $this->load->view('layar/auth_header_burgerin');
-        $this->load->view('burgerin/v_index_burgerin');
-        $this->load->view('layar/auth_footer_burgerin');
-    }
-
     public function restaurant_menu()
     {
-        $this->load->view('layar/auth_header_burgerin');
-        $this->load->view('burgerin/v_menu_burgerin');
-        $this->load->view('layar/auth_footer_burgerin');
+        $data['t_menu'] = $this->M_menu->tampil_data_menu()->result();
+        
+        $this->load->view('burgerin/v_menu_burgerin', $data);
     }
 
     public function restaurant_book()
     {
-        $this->load->view('layar/auth_header_burgerin');
         $this->load->view('burgerin/v_book_burgerin');
-        $this->load->view('layar/auth_footer_burgerin');
     }
-
-    public function restaurant_about()
-    {
-        $this->load->view('layar/auth_header_burgerin');
-        $this->load->view('burgerin/v_about_burgerin');
-        $this->load->view('layar/auth_footer_burgerin');
-    }
-
 }

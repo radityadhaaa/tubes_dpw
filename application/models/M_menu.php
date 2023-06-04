@@ -11,5 +11,9 @@ class M_menu extends CI_Model {
     public function insert_data_menu($data) {
         $this->db->insert('t_menu',$data);
     }
+
+    public function tampil_data_menu(){
+		return $this->db->get('t_menu');
+	}
     
 }

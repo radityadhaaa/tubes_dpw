@@ -28,17 +28,6 @@ class M_user extends CI_Model {
         return $query->result_array();
     }
 
-    function validate_email($postData){
-        $this->db->where('email_user', $postData['email_user']);
-        $this->db->from('t_user');
-        $query=$this->db->get();
-
-        if ($query->num_rows() == 0)
-            return true;
-        else
-            return false;
-    }
-
 
     public function updateDataUserDetail($postData) {
         $oldData = $this->get_user_by_id($postData['id_user']);
@@ -68,7 +57,7 @@ class M_user extends CI_Model {
 
     public function deleteDataUserDetail($id_user) {
         $this->db->where('id_user',$id_user);
-        $this->db->delete('t_user');
+		$this->db->delete('t_user');
     }
 
     
