@@ -22,16 +22,18 @@
             <div class="table-wrapper">
                 <div class="table-title">
                     <div class="row">
-                    <div class="col-sm-6">
+                        <div class="col-sm-6">
                             <h2>Manage <b>User</b></h2>
                         </div>
                         <div class="col-sm-6">
-                            <a href="<?= site_url('C_auth/crud_menu')?>" class="btn btn-info"><i class="material-icons">&#xE147;</i> <span>Tabel Menu</span></a>
+                            <a href="#addEmployeeModal" class="add btn btn-success" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Tambah User"></i><span>Tambah User</span></a>
+                            <a href="<?= site_url('C_auth/crud_menu') ?>" class="btn btn-info"><i class="material-icons">&#xE147;</i> <span>Tabel Menu</span></a>
+                            <a href="<?= site_url('C_auth/logout') ?>" class="btn btn-danger"><i class="material-icons">&#xF1C2;</i> <span>Keluar</span></a>
                         </div>
                     </div>
                 </div>
                 <table class="table table-striped table-hover">
-                    <a href="#addEmployeeModal" class="add" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Tambah User">&#xF89A;</i></a>
+
                     <thead>
                         <tr>
                             <th>No</th>
@@ -43,21 +45,21 @@
                     </thead>
                     <tbody>
                         <tr>
-                        <?php $nomor = 1; ?>
+                            <?php $nomor = 1; ?>
                             <?php foreach ($data as $dtm) : ?>
-                                <tr>
-                                    <td><?= $nomor ?></td>
-                                    <td><?= $dtm->nama_user; ?></td>
-                                    <td><?= $dtm->email_user; ?></td>
-                                    <td><?= $dtm->password_user; ?></td>
-                                    <td>
-                                        <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit User">&#xE254;</i></a>
-                                        <a href="<? base_url('C_auth/delete_user_action') ?>/<? $dtm->id_user ?>" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Hapus User">&#xE872;</i></a>
-                                    </td>
-                                </tr>
-                                <?php $nomor++; ?>
-                            <?php endforeach; ?>
+                        <tr>
+                            <td><?= $nomor ?></td>
+                            <td><?= $dtm->nama_user; ?></td>
+                            <td><?= $dtm->email_user; ?></td>
+                            <td><?= $dtm->password_user; ?></td>
+                            <td>
+                                <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit User">&#xE254;</i></a>
+                                <a href="<? base_url('C_auth/delete_user_action') ?>/<? $dtm->id_user ?>" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Hapus User">&#xE872;</i></a>
+                            </td>
                         </tr>
+                        <?php $nomor++; ?>
+                    <?php endforeach; ?>
+                    </tr>
                     </tbody>
                 </table>
                 <div class="clearfix">
@@ -110,7 +112,7 @@
     <div id="editEmployeeModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
-            <form method="POST" action="<?= base_url('C_auth/edit_user_action') ?>">
+                <form method="POST" action="<?= base_url('C_auth/edit_user_action') ?>">
                     <div class="modal-header">
                         <h4 class="modal-title">Edit User</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -143,7 +145,7 @@
     <div id="deleteEmployeeModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
-            <form method="POST" action="<?= base_url('C_auth/delete_user_action') ?>">
+                <form method="POST" action="<?= base_url('C_auth/delete_user_action') ?>">
                     <div class="modal-header">
                         <h4 class="modal-title">Delete User</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
